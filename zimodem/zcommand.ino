@@ -1052,11 +1052,22 @@ ZResult ZCommand::doBaudCommand(int vval, uint8_t *vbuf, int vlen)
     baudChk=vval;
   hwSerialFlush();
   if(baudChk != baudRate)
+  // {
+  //   if((baudChk<128)||(baudChk>921600))
+  //     return ZERROR;
+  //   baudRate = baudChk;
+  //   changeBaudRate(baudRate);
+  // }
   {
-    if((baudChk<128)||(baudChk>921600))
-      return ZERROR;
+  if((baudChk==300)||(baudChk==1200)||(baudChk==2400)||(baudChk==4800)||(baudChk==9600)||(baudChk==19200))  //-JL- make sure baud rates are set within ADAM's capabilities
+    {                                                                                                       //-JL- restructured this section
     baudRate = baudChk;
-    changeBaudRate(baudRate);
+    changeBaudRate(baudRate);  
+    }
+    else
+    {
+    return ZERROR;
+    }
   }
   if(serialConfig != configChk)
   {
@@ -1521,9 +1532,12 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
 # ifdef INCLUDE_CMDRX16
    char *updaterHost = "www.zimmers.net"; // changeme!
 # else
-   char *updaterHost = "www.zimmers.net";
+//   char *updaterHost = "www.zimmers.net";
+   char *updaterHost = "epearson.diroccovision.com";                             //-JL- point to diroccovision server for Coleco ADAM MIB238-WiFi card
+//  char *updaterHost = "192.168.68.50";                                           //-JL- John Lundy's internal local test server
 # endif
   int updaterPort = 80;
+//  int updaterPort = 8000;                                                        //-JL- John Lundy's internal local test server port
 #endif
 #ifdef INCLUDE_CMDRX16
   char *updaterPrefix = "/otherprojs/x16";
@@ -1531,7 +1545,8 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
 # ifdef ZIMODEM_ESP32
    char *updaterPrefix = "/otherprojs/guru2";
 # else
-  char *updaterPrefix = "/otherprojs/c64net2";
+//  char *updaterPrefix = "/otherprojs/c64net2";
+  char *updaterPrefix = "/mibwifi/mibwifi";                                      //-JL- mibwifi server directory
 # endif
 #endif
   sprintf(firmwareName,"%s-latest-version.txt",updaterPrefix);
@@ -3550,7 +3565,8 @@ void ZCommand::showInitMessage()
 #ifdef ZIMODEM_ESP32
   serial.prints("ESP32 ");
 #else
-  serial.prints("ESP8266 ");
+//  serial.prints("ESP8266 ");
+  serial.prints("MIB238-WiFi ");                                    //-JL- Changed branding for Coleco ADAM MIB238-WiFi  
 #endif
   serial.prints("Firmware v");
   HWSerial.setTimeout(60000);
