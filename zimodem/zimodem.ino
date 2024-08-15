@@ -146,7 +146,8 @@ const char compile_date[] = __DATE__ " " __TIME__;
 # define DEFAULT_PIN_CTS 5 // is 0 for ESP-01
 # define DEFAULT_PIN_DCD 2
 # define DEFAULT_PIN_OTH MAX_PIN_NO // pulse pin
-# define DEFAULT_FCT FCT_DISABLED
+//# define DEFAULT_FCT FCT_DISABLED
+# define DEFAULT_FCT FCT_RTSCTS                                       //-JL- Set RTS/CTS as default
 # define debugPrintf doNothing
 # define preEOLN(...)
 # define echoEOLN(...) serial.prints(EOLN)
@@ -154,20 +155,35 @@ const char compile_date[] = __DATE__ " " __TIME__;
 
 # define INCLUDE_PING true
 
-# define DEFAULT_DCD_ACTIVE  LOW
-# define DEFAULT_DCD_INACTIVE  HIGH
-# define DEFAULT_CTS_ACTIVE  LOW
-# define DEFAULT_CTS_INACTIVE  HIGH
-# define DEFAULT_RTS_ACTIVE  LOW
-# define DEFAULT_RTS_INACTIVE  HIGH
-# define DEFAULT_RI_ACTIVE  LOW
-# define DEFAULT_RI_INACTIVE  HIGH
-# define DEFAULT_DSR_ACTIVE  LOW
-# define DEFAULT_DSR_INACTIVE  HIGH
-# define DEFAULT_DTR_ACTIVE  LOW
-# define DEFAULT_DTR_INACTIVE  HIGH
-# define DEFAULT_OTH_ACTIVE  LOW
-# define DEFAULT_OTH_INACTIVE  HIGH
+//# define DEFAULT_DCD_ACTIVE  LOW
+//# define DEFAULT_DCD_INACTIVE  HIGH
+//# define DEFAULT_CTS_ACTIVE  LOW
+//# define DEFAULT_CTS_INACTIVE  HIGH
+//# define DEFAULT_RTS_ACTIVE  LOW
+//# define DEFAULT_RTS_INACTIVE  HIGH
+//# define DEFAULT_RI_ACTIVE  LOW
+//# define DEFAULT_RI_INACTIVE  HIGH
+//# define DEFAULT_DSR_ACTIVE  LOW
+//# define DEFAULT_DSR_INACTIVE  HIGH
+//# define DEFAULT_DTR_ACTIVE  LOW
+//# define DEFAULT_DTR_INACTIVE  HIGH
+//# define DEFAULT_OTH_ACTIVE  LOW
+//# define DEFAULT_OTH_INACTIVE  HIGH
+
+# define DEFAULT_DCD_ACTIVE  HIGH                                     //-JL- MIB needs reversed signals
+# define DEFAULT_DCD_INACTIVE  LOW
+# define DEFAULT_CTS_ACTIVE  HIGH
+# define DEFAULT_CTS_INACTIVE  LOW
+# define DEFAULT_RTS_ACTIVE  HIGH
+# define DEFAULT_RTS_INACTIVE  LOW
+# define DEFAULT_RI_ACTIVE  HIGH
+# define DEFAULT_RI_INACTIVE  LOW
+# define DEFAULT_DSR_ACTIVE  HIGH
+# define DEFAULT_DSR_INACTIVE  LOW
+# define DEFAULT_DTR_ACTIVE  HIGH
+# define DEFAULT_DTR_INACTIVE  LOW
+# define DEFAULT_OTH_ACTIVE  HIGH
+# define DEFAULT_OTH_INACTIVE  LOW
 
 #define MAX_PIN_NO 50
 #define INTERNAL_FLOW_CONTROL_DIV 380
