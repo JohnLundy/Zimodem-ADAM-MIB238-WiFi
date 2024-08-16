@@ -3561,12 +3561,12 @@ void ZCommand::showInitMessage()
   SPIFFS.info(info);
   int totalSPIFFSSize = info.totalBytes;
 #endif
-  serial.prints("Zimodem ");
+//  serial.prints("Zimodem ");                                      //-JL- Removed to pass Teleterm "MIB WiFi" product name verification to use FTP mode
 #ifdef ZIMODEM_ESP32
   serial.prints("ESP32 ");
 #else
 //  serial.prints("ESP8266 ");
-  serial.prints("MIB238-WiFi ");                                    //-JL- Changed branding for Coleco ADAM MIB238-WiFi  
+  serial.prints("MIB WiFi ");                                     //-JL- Changed branding for Coleco ADAM MIB WiFi and to pass Teleterm "MIB WiFi" name verification to use FTP mode
 #endif
   serial.prints("Firmware v");
   HWSerial.setTimeout(60000);
